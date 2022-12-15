@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CalendarFragment">
+
+    <TextView
+        android:id="@+id/millis"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#C5ACEF"
+        android:textColor="#2E0871"
+        android:textSize="30dp"
+        android:text="yyyy-MM"
+        />
+
+
+    <com.example.pj3.custom.CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_launcher_foreground" />
+
+
+</LinearLayout>
+-->
+<layout>
+    <data>
+        <variable
+            name="fragmentViewModel"
+            type="com.example.mycalendar.viewmodel.FragmentViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".CalendarFragment">
+
+
+        <TextView
+            android:id="@+id/millis"
+            style="@style/FragmentMain"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/calendarView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{fragmentViewModel.date}"/>
+
+
+        <com.example.mycalendar.custom.CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/ic_launcher_foreground"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/millis" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

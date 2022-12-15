@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.mycalendar.viewmodel.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/activity_main_xml_constraintlayout_scene"
+        tools:context=".MainActivity">
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/main_bottom_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.95"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" >
+
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/main_bottom_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="#00000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_viewPager2"/>
+            <!--
+
+            <TextView
+                android:id="@+id/textview1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.date}"
+                app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+-->
+
+            <View
+                android:id="@+id/bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="1"
+                android:background="@drawable/ic_baseline_keyboard_arrow_up_24"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview"
+                app:layout_constraintEnd_toEndOf="@id/main_bottom_view"
+                app:layout_constraintStart_toStartOf="@id/main_bottom_view"
+                app:layout_constraintTop_toTopOf="@id/main_bottom_view"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0"
+                android:background="#BFBDC1"
+                android:scrollbars="vertical"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="@id/main_bottom_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bottom" />
+
+            <!--  <Button
+                android:id="@+id/btn2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.mainBtnClick()}"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerview"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addFloating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom"
+            tools:ignore="SpeakableTextPresentCheck"
+            android:onClick="@{()->viewModel.mainBtnClick()}"
+            />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>
