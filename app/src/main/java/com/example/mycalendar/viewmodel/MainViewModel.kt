@@ -21,7 +21,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var detailTitle : MutableLiveData<String> = MutableLiveData()
     var detailContent : MutableLiveData<String> = MutableLiveData()
 
-
     private lateinit var list : List<Schedule>
 
 
