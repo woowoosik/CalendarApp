@@ -17,12 +17,26 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var title : MutableLiveData<String> = MutableLiveData()
     var content : MutableLiveData<String> = MutableLiveData()
 
+    var detailDate : MutableLiveData<String> = MutableLiveData()
+    var detailTitle : MutableLiveData<String> = MutableLiveData()
+    var detailContent : MutableLiveData<String> = MutableLiveData()
 
 
     private lateinit var list : List<Schedule>
 
 
     private var recyclerData = arrayListOf<Schedule>()
+
+
+    var itemPosition : MutableLiveData<Int> = MutableLiveData()
+    fun itemClick(c:Int){
+        Log.e("itemClick", "$c")
+    }
+
+
+
+
+
 
     val itemData = MutableLiveData<Schedule>()
 
@@ -51,6 +65,9 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         title.value=""
         content.value =""
 
+        detailDate.value = ""
+        detailTitle.value = ""
+        detailContent.value = ""
 
         /*val scheduleDao = ScheduleDatabase.getInstance(application)!!.scheduleDao()
         repository = Repository(scheduleDao) //이니셜라이즈 해줍니다.
@@ -114,6 +131,36 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             dayClick("2022-11-23")
         }
     }
+
+    fun addSchedule(){
+        Log.e("addSchedule", "@@@@@ ${detailDate.value} $detailTitle $detailContent ")
+
+        viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
+
+            // val date = detailDate.value
+            val dDate = "2022-12-20"
+            val dTitle = detailTitle.value
+            val dContent = detailContent.value
+
+            detailDate.postValue("")
+            detailTitle.postValue("")
+            detailContent.postValue("")
+
+            Log.e("addSchedule", " $dDate  $dTitle  $dContent")
+            repository.setRoomData("${dDate}",
+                DateTime().toString("HH:mm")+" ${dTitle}",
+                "${dContent}")
+
+            if(dDate == date.value.toString()){
+                scheduleLiveData.postValue(repository.repositoryTest(dDate))
+            }
+
+        }
+
+
+    }
+
+
 
 /*
 

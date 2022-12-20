@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mycalendar.database.ScheduleDatabase
 import com.example.mycalendar.databinding.ActivityMainBinding
 import com.example.mycalendar.factory.MainViewModelFactory
+import com.example.mycalendar.fragment.AddFragment
+import com.example.mycalendar.fragment.DetailFragment
 import com.example.mycalendar.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(){
@@ -53,9 +55,19 @@ class MainActivity : AppCompatActivity(){
         adapter.setItemClickListener(object: MainRecyclerAdapter.OnItemClickListener{
             override fun onItemClick(v:View, position: String, position2: String, position3: String) {
                 Log.e("Main", "@@@@@@@@@@@@@@@@@@@@@@@@@@")
-                val intent = Intent(this@MainActivity, DetailPage::class.java)
+              /*  val intent = Intent(this@MainActivity, DetailPage::class.java)
+
+                startActivity(intent)*/
                 viewModel.getItemData(position,position2,position3)
-                startActivity(intent)
+                Log.e("p1", "$position")
+
+                Log.e("p2", "$position2")
+
+                Log.e("p3", "$position3")
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, DetailFragment())
+                    .addToBackStack(null)
+                    .commit()
             }
         })
 
@@ -92,8 +104,14 @@ class MainActivity : AppCompatActivity(){
         binding.mainViewPager2.setCurrentItem(CalendarAdapter.START_POSITION, false)
 
 
+        binding.addFloating.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, AddFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
-       // viewModel.dayClick("2022-09-29")
+        // viewModel.dayClick("2022-09-29")
 
 
     }

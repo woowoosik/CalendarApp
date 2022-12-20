@@ -9,12 +9,21 @@
             name="viewModel"
             type="com.example.mycalendar.viewmodel.MainViewModel" />
     </data>
+    <FrameLayout
+        android:id="@+id/main_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutDescription="@xml/activity_main_xml_constraintlayout_scene"
         tools:context=".MainActivity">
+<!--
+        <FrameLayout
+            android:id="@+id/main_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">-->
 
 
         <androidx.viewpager2.widget.ViewPager2
@@ -102,8 +111,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             tools:ignore="SpeakableTextPresentCheck"
-            android:onClick="@{()->viewModel.mainBtnClick()}"
             />
 
+
+  <!--      </FrameLayout>-->
+
     </androidx.constraintlayout.motion.widget.MotionLayout>
+
+    </FrameLayout>
 </layout>
