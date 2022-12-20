@@ -18,7 +18,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var content : MutableLiveData<String> = MutableLiveData()
 
 
-
     private lateinit var list : List<Schedule>
 
 
