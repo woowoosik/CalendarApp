@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity(){
         // databinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-
+        // branch 2 test 주석
 /*      12.8 주석
         val dao = ScheduleDatabase.getInstance(application)!!.scheduleDao()
         val repository = Repository.getInstance(dao)
