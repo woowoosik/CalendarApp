@@ -36,5 +36,6 @@ class AddFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
+
     }
 }

@@ -49,5 +49,7 @@ class Repository(private val scheduleDao: ScheduleDao) {
 
     fun setRoomData(d:String, s:String, c:String) = scheduleDao.setInsertData(d,s,c)
 
+    fun updateSchedule(id: Int,d:String, s:String, c:String) = scheduleDao.setUpdateData(id,d,s,c)
+
 
 }

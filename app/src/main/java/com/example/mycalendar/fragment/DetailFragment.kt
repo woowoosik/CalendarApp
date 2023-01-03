@@ -35,6 +35,11 @@ class DetailFragment : Fragment() {
         binding.viewModel = mainViewModel
         binding.lifecycleOwner = this
 
-
+        binding.bt1.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, UpdateFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }

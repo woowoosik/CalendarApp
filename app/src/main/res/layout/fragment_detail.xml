@@ -23,7 +23,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="15dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@{viewModel.itemData.date}"
+            android:text="@{viewModel.detailData.date}"
             />
 
 
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="15dp"
             android:textColor="@color/black"
-            android:text="@{viewModel.itemData.title}"/>
+            android:text="@{viewModel.detailData.title}"/>
 
         <TextView
             android:id="@+id/tv3"
@@ -49,7 +49,7 @@
             app:layout_constraintBottom_toTopOf="@+id/gl1"
             android:textSize="15dp"
             android:textColor="@color/colorAccent"
-            android:text="@{viewModel.itemData.content}"/>
+            android:text="@{viewModel.detailData.content}"/>
 
 
         <androidx.constraintlayout.widget.Guideline

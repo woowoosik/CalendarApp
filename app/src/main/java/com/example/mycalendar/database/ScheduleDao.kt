@@ -28,6 +28,8 @@ interface ScheduleDao {
     @Query("INSERT INTO SCHEDULE(date, title, content) VALUES(:d ,:t,:c)")
     fun setInsertData(d:String, t:String, c:String)
 
+    @Query("UPDATE SCHEDULE SET date = :d, title = :s, content = :c WHERE id=:id")
+    fun setUpdateData(id: Int,d:String, s:String, c:String)
 
 
 }

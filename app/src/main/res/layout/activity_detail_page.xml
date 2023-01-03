@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="@{viewModel.itemData.date}"
+            android:text="@{viewModel.detailData.date}"
             />
 
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="@{viewModel.itemData.title}"/>
+            android:text="@{viewModel.detailData.title}"/>
 
         <TextView
             android:id="@+id/tv3"
@@ -37,6 +37,6 @@
             android:layout_height="wrap_content"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="@{viewModel.itemData.content}"/>
+            android:text="@{viewModel.detailData.content}"/>
     </LinearLayout>
 </layout>

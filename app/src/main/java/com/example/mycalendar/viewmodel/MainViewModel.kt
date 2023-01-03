@@ -5,11 +5,8 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.mycalendar.Repository
 import com.example.mycalendar.database.Schedule
-import com.example.mycalendar.database.ScheduleDao
 import com.example.mycalendar.database.ScheduleDatabase
-import com.example.mycalendar.factory.MainViewModelFactory
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import org.joda.time.DateTime
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
@@ -17,34 +14,45 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     var title : MutableLiveData<String> = MutableLiveData()
     var content : MutableLiveData<String> = MutableLiveData()
 
-    var detailDate : MutableLiveData<String> = MutableLiveData()
+
+    var detailData = MutableLiveData<Schedule>()
+
+    // var updateData = MutableLiveData<Schedule>()
+
+    // var addData = MutableLiveData<Schedule>()
+
+
+
+/*
+
+    var addDate : MutableLiveData<String> = MutableLiveData()
+    var addTitle : MutableLiveData<String> = MutableLiveData()
+    var addContent : MutableLiveData<String> = MutableLiveData()
+*/
+
+   /* var detailDate : MutableLiveData<String> = MutableLiveData()
     var detailTitle : MutableLiveData<String> = MutableLiveData()
-    var detailContent : MutableLiveData<String> = MutableLiveData()
+    var detailContent : MutableLiveData<String> = MutableLiveData()*/
 
     private lateinit var list : List<Schedule>
 
 
-    private var recyclerData = arrayListOf<Schedule>()
+   // val itemData = MutableLiveData<Schedule>()
 
+    fun getItemData(position:String, title:String, content:String){
+       // itemData.value = Schedule(date, title, content)
 
-    var itemPosition : MutableLiveData<Int> = MutableLiveData()
-    fun itemClick(c:Int){
-        Log.e("itemClick", "$c")
+        // itemData.value = scheduleLiveData.value?.get(position.toInt())
+        detailData.postValue(scheduleLiveData.value?.get(position.toInt()))
+        // Log.e("MainViewModel", "getItemData  ${itemData.value} ${scheduleLiveData.value?.get(position.toInt())}")
     }
 
+    fun setItemData(position:String, title:String, content:String){
+        // itemData.value = Schedule(date, title, content)
+        // itemData.postValue(Schedule(position,title,content))
+ }
 
 
-
-
-
-    val itemData = MutableLiveData<Schedule>()
-
-    fun getItemData(date:String, title:String, content:String){
-        itemData.value = Schedule(date, title, content)
-        Log.e("MainViewModel", "getItemData  ${itemData.value}")
-    }
-
-    fun setItemData() = itemData
 
     /*private val testData = arrayListOf(Schedule("2022-10-25","타이틀1","공식방송날"),
         Schedule("2022-10-27","정식오픈날","오픈날"),
@@ -64,18 +72,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         title.value=""
         content.value =""
 
+        resetAddDate()
+/*
         detailDate.value = ""
         detailTitle.value = ""
-        detailContent.value = ""
+        detailContent.value = ""*/
 
         /*val scheduleDao = ScheduleDatabase.getInstance(application)!!.scheduleDao()
         repository = Repository(scheduleDao) //이니셜라이즈 해줍니다.
         readGetData = repository.allData// readAlldata는 repository에서 만들어줬던 livedata입니다.*/
-    }
-
-
-    fun viewmodelTest(){
-        Log.e("viewmodel test"," 테스트 성공 ")
     }
 
     fun dayClick(day:String){
@@ -84,30 +89,16 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
 
-            list = repository.repositoryTest(day)
+             list = repository.repositoryTest(day)
 
-            scheduleLiveData.postValue(repository.repositoryTest(day))
+            scheduleLiveData.postValue(list)
 
             for(dt in list){
-                Log.e("MainViewModel__" ," ${dt.date}  ${dt.title}  ${dt.content}")
+                Log.e("MainViewModel__" ,"${dt.id} ${dt.date}  ${dt.title}  ${dt.content}")
 
-
-            /* val text = listText.value + dt.date+"\n"
-                listText.postValue(text)
-                Log.e("MainViewModel__" ," ${listText.value}")*/
             }
 
-
-
         }
-
-
-
-    }
-
-
-    fun clickTest(){
-        Log.e("MainViewModel_3", "@@@@@  ${date.value} 클릭")
     }
 
     fun mainBtnClick(){
@@ -131,19 +122,35 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun addSchedule(){
-        Log.e("addSchedule", "@@@@@ ${detailDate.value} $detailTitle $detailContent ")
+    private fun resetAddDate(){
+      /*  addDate.postValue("")
+        addTitle.postValue("")
+        addContent.postValue("")*/
+    }
+    fun addSchedule(d:String, t:String, c:String){
+      //  Log.e("addSchedule", "@@@@@ ${d} $t $c ")
 
         viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
 
+           // Log.e("addScheduel","${addData.value}")
             // val date = detailDate.value
-            val dDate = "2022-12-20"
-            val dTitle = detailTitle.value
-            val dContent = detailContent.value
+            /*val dDate = addData.value?.date
+            val dTitle = addData.value?.title
+            val dContent = addData.value?.content
 
+
+            addData.postValue(Schedule("","",""))
+            */
+
+            val dDate = d
+            val dTitle = t
+            val dContent = c
+
+/*
             detailDate.postValue("")
             detailTitle.postValue("")
-            detailContent.postValue("")
+            detailContent.postValue("")*/
+
 
             Log.e("addSchedule", " $dDate  $dTitle  $dContent")
             repository.setRoomData("${dDate}",
@@ -153,11 +160,75 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             if(dDate == date.value.toString()){
                 scheduleLiveData.postValue(repository.repositoryTest(dDate))
             }
+        }
+
+    }
+
+
+    private val _updateComplate : MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val updateComplate : LiveData<Event<Boolean>> = _updateComplate
+
+    fun updateSchdule(d:String, t:String, c:String) {
+
+        viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
+
+            val dId = detailData.value?.id
+            val dDate = d
+            val dTitle = t
+            val dContent = c
+/*
+            detailDate.postValue("")
+            detailTitle.postValue("")
+            detailContent.postValue("")*/
+
+            // updateData.postValue(Schedule("","",""))
+
+
+            if (dId != null) {
+                repository.updateSchedule(
+                    dId, "${dDate}",
+                    DateTime().toString("HH:mm") + " ${dTitle}",
+                    "${dContent}"
+                )
+            }
+
+            if (dDate == date.value.toString()) {
+
+                scheduleLiveData.postValue(repository.repositoryTest(dDate))
+
+                Log.e("updateSchdule", " ${scheduleLiveData.value}")
+
+                _updateComplate.postValue(Event(true))
+                //itemData.value = scheduleLiveData.value?.get(dId!!)
+            }
+
+            // setItemData(dDate.toString(),dTitle.toString(),dContent.toString())
+
+/*
+
+            if (dDate != null) {
+                itemData.value!!.date = dDate
+            }else{
+                itemData.value!!.date = ""
+            }
+            if (dTitle != null) {
+                itemData.value!!.title = dTitle
+            }else{
+                itemData.value!!.title = ""
+            }
+            if (dContent != null) {
+                itemData.value!!.content = dContent
+            }else{
+                itemData.value!!.content = ""
+            }
+*/
+
 
         }
 
-
     }
+
+
 
 
 
@@ -196,6 +267,26 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             return MainViewModel(Repository.getInstance(dao)!!) as T
         }
     }
+
+    open class Event<out T>(private val content: T) {
+        var hasBeenHandled = false
+            private set
+
+        fun getContentIfNotHandled(): T? {
+            return if (hasBeenHandled) { // 이벤트가 이미 처리 되었다면
+                null // null을 반환하고,
+            } else { // 그렇지 않다면
+                hasBeenHandled = true // 이벤트가 처리되었다고 표시한 후에
+                content // 값을 반환합니다.
+            }
+        }
+
+        /**
+         * 이벤트의 처리 여부에 상관 없이 값을 반환합니다.
+         */
+        fun peekContent(): T = content
+    }
+
 
 
 }

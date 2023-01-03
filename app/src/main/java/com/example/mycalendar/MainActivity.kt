@@ -1,20 +1,18 @@
 package com.example.mycalendar
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mycalendar.database.ScheduleDatabase
 import com.example.mycalendar.databinding.ActivityMainBinding
-import com.example.mycalendar.factory.MainViewModelFactory
 import com.example.mycalendar.fragment.AddFragment
 import com.example.mycalendar.fragment.DetailFragment
+import com.example.mycalendar.fragment.UpdateFragment
 import com.example.mycalendar.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity(){
@@ -30,7 +28,6 @@ class MainActivity : AppCompatActivity(){
         // databinding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        // branch 2 test 주석
 /*      12.8 주석
         val dao = ScheduleDatabase.getInstance(application)!!.scheduleDao()
         val repository = Repository.getInstance(dao)
@@ -73,9 +70,11 @@ class MainActivity : AppCompatActivity(){
 
 
 
+
         viewModel.scheduleLiveData.observe(this, Observer{
             (binding.recyclerview.adapter as MainRecyclerAdapter).setData(it)
         })
+
 
         // db 생성
         /*db = ScheduleDatabase.getInstance(application)!!
@@ -114,6 +113,30 @@ class MainActivity : AppCompatActivity(){
         // viewModel.dayClick("2022-09-29")
 
 
+    }
+
+    fun changeFragment(index: Int){
+        when(index){
+            1 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, DetailFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+
+            2 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, AddFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+            3 -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, UpdateFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
     }
 
 

@@ -23,6 +23,7 @@ class DetailPage : AppCompatActivity() {
         viewModel = ViewModelProvider(this,MainViewModel.Factory(application))[MainViewModel::class.java]
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+/*
 
         Log.e("DetailPage", " 1${viewModel.itemData.value}")
         viewModel.itemData.observe(this, Observer {
@@ -31,6 +32,7 @@ class DetailPage : AppCompatActivity() {
             binding.tv2.text = it.title
             binding.tv3.text = it.content
         })
+*/
 
 
        /*
