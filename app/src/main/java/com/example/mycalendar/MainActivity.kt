@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity(){
 
 
 
+        //
+
 
         viewModel.scheduleLiveData.observe(this, Observer{
             (binding.recyclerview.adapter as MainRecyclerAdapter).setData(it)
