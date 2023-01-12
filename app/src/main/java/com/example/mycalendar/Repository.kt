@@ -51,5 +51,7 @@ class Repository(private val scheduleDao: ScheduleDao) {
 
     fun updateSchedule(id: Int,d:String, s:String, c:String) = scheduleDao.setUpdateData(id,d,s,c)
 
+    fun deleteSchedule(id:Int) = scheduleDao.setDeleteData(id)
+
 
 }

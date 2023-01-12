@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B6B0BD"
+        android:clickable="true"
         tools:context=".DetailPage">
 
         <EditText
@@ -23,7 +24,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="30dp"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@={viewModel.detailData.date}"
+            android:text="@{viewModel.detailData.date}"
             />
 
 
@@ -37,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:textSize="30dp"
             android:textColor="@color/black"
-            android:text="@={viewModel.detailData.title}"/>
+            android:text="@{viewModel.detailData.title}"/>
 
         <EditText
             android:id="@+id/et3"
@@ -49,7 +50,7 @@
             app:layout_constraintBottom_toTopOf="@+id/bt1"
             android:textSize="30dp"
             android:textColor="@color/colorAccent"
-            android:text="@={viewModel.detailData.content}"/>
+            android:text="@{viewModel.detailData.content}"/>
 
         <Button
             android:id="@+id/bt1"

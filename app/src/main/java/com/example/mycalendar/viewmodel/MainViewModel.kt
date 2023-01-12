@@ -17,7 +17,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     var detailData = MutableLiveData<Schedule>()
 
-    // var updateData = MutableLiveData<Schedule>()
+    var updateData = MutableLiveData<Schedule>()
 
     // var addData = MutableLiveData<Schedule>()
 
@@ -127,6 +127,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         addTitle.postValue("")
         addContent.postValue("")*/
     }
+
+    private val _addComplate : MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val addComplate : LiveData<Event<Boolean>> = _addComplate
+
+
     fun addSchedule(d:String, t:String, c:String){
       //  Log.e("addSchedule", "@@@@@ ${d} $t $c ")
 
@@ -157,9 +162,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 DateTime().toString("HH:mm")+" ${dTitle}",
                 "${dContent}")
 
+
             if(dDate == date.value.toString()){
                 scheduleLiveData.postValue(repository.repositoryTest(dDate))
+
             }
+
+            _addComplate.postValue(Event(true))
         }
 
     }
@@ -172,6 +181,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
 
+            Log.e("updateSchedule", "${date.value}   $d $t $c")
             val dId = detailData.value?.id
             val dDate = d
             val dTitle = t
@@ -184,6 +194,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             // updateData.postValue(Schedule("","",""))
 
 
+
+            Log.e("updateSchedule2", "${date.value}   $d $t $c")
             if (dId != null) {
                 repository.updateSchedule(
                     dId, "${dDate}",
@@ -192,16 +204,33 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 )
             }
 
+
+
+            Log.e("updateSchedule3", "${date.value}  $d $t $c")
             if (dDate == date.value.toString()) {
+
+                Log.e("updateSchedule4", " $d $t $c")
 
                 scheduleLiveData.postValue(repository.repositoryTest(dDate))
 
                 Log.e("updateSchdule", " ${scheduleLiveData.value}")
 
-                _updateComplate.postValue(Event(true))
+
+
+                Log.e("updateSchedule5", " $d $t $c")
+                Log.e("mainviewmodel", "update 버튼 detail: ${detailData.value}      update: ${updateData.value}")
+                Log.e("mainviewmodel","${_updateComplate.value}")
+
                 //itemData.value = scheduleLiveData.value?.get(dId!!)
             }
 
+
+            detailData.postValue(Schedule(d,t,c))
+
+            _updateComplate.postValue(Event(true))
+
+
+            Log.e("updateSchedule6", "${date.value}  $d $t $c")
             // setItemData(dDate.toString(),dTitle.toString(),dContent.toString())
 
 /*
@@ -226,6 +255,33 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
         }
 
+    }
+
+
+    private val _deleteComplate : MutableLiveData<Event<Boolean>> = MutableLiveData()
+    val deleteComplate : LiveData<Event<Boolean>> = _deleteComplate
+
+    fun deleteSchdule() {
+        viewModelScope.launch(Dispatchers.IO) { //코루틴 활성화 dispatcherIO는 백그라운드에서 실행
+
+            val dId = detailData.value?.id
+
+            val dDate = detailData.value?.date
+
+            if (dId != null) {
+                repository.deleteSchedule(dId)
+            }
+
+
+            if (dDate == date.value.toString()) {
+                scheduleLiveData.postValue(repository.repositoryTest(dDate))
+
+            }
+
+            _deleteComplate.postValue(Event(true))
+
+
+        }
     }
 
 

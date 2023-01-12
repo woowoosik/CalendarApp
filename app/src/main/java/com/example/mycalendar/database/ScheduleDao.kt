@@ -31,5 +31,9 @@ interface ScheduleDao {
     @Query("UPDATE SCHEDULE SET date = :d, title = :s, content = :c WHERE id=:id")
     fun setUpdateData(id: Int,d:String, s:String, c:String)
 
+    @Query("DELETE FROM SCHEDULE WHERE id=:id")
+    fun setDeleteData(id: Int)
+
+
 
 }

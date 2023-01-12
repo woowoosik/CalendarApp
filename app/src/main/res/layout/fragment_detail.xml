@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#B6B0BD"
+        android:clickable="true"
         tools:context=".DetailPage">
 
         <TextView
@@ -76,7 +77,7 @@
             app:layout_constraintStart_toEndOf="@+id/bt1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-
+            android:onClick="@{()->viewModel.deleteSchdule()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="삭제"></Button>

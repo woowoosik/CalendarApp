@@ -1,13 +1,16 @@
 package com.example.mycalendar.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import com.example.mycalendar.EventObserver
 import com.example.mycalendar.R
 import com.example.mycalendar.databinding.ActivityDetailPageBinding
 import com.example.mycalendar.databinding.FragmentDetailBinding
@@ -41,5 +44,14 @@ class DetailFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
+        mainViewModel.deleteComplate.observe(viewLifecycleOwner, EventObserver {
+            Log.e("delete observer","")
+            val fragmentManager: FragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .remove(this@DetailFragment)
+                .commit()
+            fragmentManager.popBackStack()
+        })
     }
 }
