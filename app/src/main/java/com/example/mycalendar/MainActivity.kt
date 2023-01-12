@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity(){
 
 
     }
-
+/*
     fun changeFragment(index: Int){
         when(index){
             1 -> {
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity(){
                     .commit()
             }
         }
-    }
+    }*/
 
 
 
