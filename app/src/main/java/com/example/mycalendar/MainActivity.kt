@@ -71,6 +71,8 @@ class MainActivity : AppCompatActivity(){
         //
 
 
+        //
+
 
         viewModel.scheduleLiveData.observe(this, Observer{
             (binding.recyclerview.adapter as MainRecyclerAdapter).setData(it)
@@ -115,7 +117,7 @@ class MainActivity : AppCompatActivity(){
 
 
     }
-
+/*
     fun changeFragment(index: Int){
         when(index){
             1 -> {
@@ -138,7 +140,7 @@ class MainActivity : AppCompatActivity(){
                     .commit()
             }
         }
-    }
+    }*/
 
 
 
